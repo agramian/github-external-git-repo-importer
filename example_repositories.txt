@@ -1,0 +1,3 @@
+https://external-host.com/extuser/repo1.git https://github.com/ghuser/repo1.git
+https://external-host.com/extuser/repo2.git https://github.com/orgname/repo2.git
+https://external-host.com/extuser/repo3.git https://github.com/ghuser/repo3.git
