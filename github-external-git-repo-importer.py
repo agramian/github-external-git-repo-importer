@@ -23,10 +23,14 @@ def parse_github_url(url):
     :param url: The GitHub URL.
     :return: (domain, owner, repo_name) tuple.
     """
-    ssh_pattern = r"^ssh://(?:git@)?(?P<domain>[\w.-]+)(?::|/)(?P<owner>[\w-]+)/(?P<repo>[\w.-]+)\.git$"
+
+    ssh_pattern_1 = r"git@(?P<domain>[\w.-]+):(?P<owner>[\w-]+)/(?P<repo>[\w.-]+)\.git"
+    ssh_pattern_2 = r"ssh://git@(?P<domain>[\w.-]+)/(?P<owner>[\w-]+)/(?P<repo>[\w.-]+)\.git"
     https_pattern = r"https://(?P<domain>[\w.-]+)/(?P<owner>[\w-]+)/(?P<repo>[\w.-]+)"
 
-    if match := re.match(ssh_pattern, url):
+    if match := re.match(ssh_pattern_1, url):
+        return match.group("domain"), match.group("owner"), match.group("repo")
+    elif match := re.match(ssh_pattern_2, url):
         return match.group("domain"), match.group("owner"), match.group("repo")
     elif match := re.match(https_pattern, url):
         return match.group("domain"), match.group("owner"), match.group("repo")
