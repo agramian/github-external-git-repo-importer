@@ -137,7 +137,7 @@ def main():
 
     try:
         with open(file_path, "r") as file:
-            repo_list = [line.strip().split() for line in file if line.strip()]
+            repo_list = [line.strip().split() for line in file if line.strip() and not line.strip().startswith("#")]
     except Exception as e:
         print(f"Error: Could not read the file. {e}")
         sys.exit(1)
