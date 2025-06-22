@@ -25,14 +25,14 @@ def parse_github_url(url):
     """
 
     ssh_pattern_1 = r"git@(?P<domain>[\w.-]+):(?P<owner>[\w-]+)/(?P<repo>[\w.-]+)\.git"
-    ssh_pattern_2 = r"ssh://git@(?P<domain>[\w.-]+)/(?P<owner>[\w-]+)/(?P<repo>[\w.-]+)\.git"
-    https_pattern = r"https://(?P<domain>[\w.-]+)/(?P<owner>[\w-]+)/(?P<repo>[\w.-]+)"
+    ssh_pattern_2 = r"ssh://git@(?P<domain>[\w.-]+(?::\d+)?)/(?P<owner>[\w-]+)/(?P<repo>[\w.-]+)\.git"
+    http_pattern = r"https?://(?P<domain>[\w.-]+(?::\d+)?)/(?P<owner>[\w-]+)/(?P<repo>[\w.-]+?)(?:\.git)?$"
 
     if match := re.match(ssh_pattern_1, url):
         return match.group("domain"), match.group("owner"), match.group("repo")
     elif match := re.match(ssh_pattern_2, url):
         return match.group("domain"), match.group("owner"), match.group("repo")
-    elif match := re.match(https_pattern, url):
+    elif match := re.match(http_pattern, url):
         return match.group("domain"), match.group("owner"), match.group("repo")
     else:
         print(f"Error: Invalid GitHub repository URL: {url}")
